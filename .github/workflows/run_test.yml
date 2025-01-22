@@ -23,7 +23,7 @@ jobs:
         with:
           repository: gnolang/gno
           ref: master
-          # path: ./gno
+          path: ./gno
 
       - name: change block time to 2s
         run: |
@@ -32,8 +32,9 @@ jobs:
       - name: build gno
         run: |
           cd gno
-          # make install
-          make install.gno
+          make install
+          cd gno/gno.land
+          make install
 
       - name: set up python
         uses: actions/setup-python@v4
