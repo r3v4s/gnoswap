@@ -28,11 +28,9 @@ jobs:
       - name: change block time to 2s
         run: |
           sed -i 's/ctx.Timestamp += (count \* 5)/ctx.Timestamp += (count \* 2)/g' ./gno/gnovm/tests/stdlibs/std/std.go
-          pwd
 
       - name: build gno
         run: |
-          # pwd // /home/runner/work/gnoswap/gnoswap
           cd gno
           make install.gno
 
@@ -49,11 +47,7 @@ jobs:
       - name: run setup.py to copy contracts
         run: |
           cd tmp/gnoswap
-          pwd
-
-          ls -l /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/
           python3 setup.py -w /home/runner/work/gnoswap/gnoswap
-          ls -l /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/
 
       - name: prepare `common` tests
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
@@ -85,6 +79,6 @@ jobs:
             echo "Finished tests for: $base.gno"
             echo "---------------------------------------------------"
 
-            echo "Reverting $base → $f"
-            mv "$base" "$f"
+            echo "Reverting $base → $f.gno"
+            mv "$base" "$f.gno"
           done
