@@ -31,7 +31,7 @@ jobs:
 
       - name: build gno
         run: |
-          which gno
+          # which gno
           cd gno
           make install.gno
           which gno
