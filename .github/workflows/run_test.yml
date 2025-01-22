@@ -49,8 +49,8 @@ jobs:
           cd tmp/gnoswap
           python3 setup.py -w /home/runner/gnoswap/gnoswap
 
-      - name: prepare `gns` tests
-        working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/gns
+      - name: prepare `common` tests
+        working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
         run: |
           for f in *_test.gno; do
             [ -e "$f" ] || continue
@@ -62,8 +62,8 @@ jobs:
             mv "$f" "${f}A"
           done
 
-      - name: run `gns` tests one by one
-        working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/gns
+      - name: run `common` tests one by one
+        working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
         run: |
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
