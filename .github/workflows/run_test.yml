@@ -37,7 +37,7 @@ jobs:
       - name: build gno
         run: |
           cd gno
-          make install
+          make install.gno
 
       - name: set up python
         uses: actions/setup-python@v4
