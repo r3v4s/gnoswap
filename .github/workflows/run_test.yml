@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
+      - name: set up go
+        uses: actions/setup-go@v5
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          go-version: 1.22
 
       - name: checkout gno
         uses: actions/checkout@v4
@@ -39,6 +39,11 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
+
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: run setup.py to copy contracts
         run: |
