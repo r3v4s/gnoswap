@@ -71,12 +71,12 @@ jobs:
             base="${f%.gnoA}"
 
             echo "---------------------------------------------------"
-            echo "Renaming $f → $base"
-            mv "$f" "$base"
+            echo "Renaming $f → $base.gno"
+            mv "$f" "$base.gno"
 
-            echo "Running 'gno test' for: $base"
+            echo "Running 'gno test' for: $base.gno"
             gno test ./ -root-dir /home/runner/gnoswap/gnoswap/gno -v
-            echo "Finished tests for: $base"
+            echo "Finished tests for: $base.gno"
             echo "---------------------------------------------------"
 
             echo "Reverting $base → $f"
