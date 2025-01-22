@@ -23,18 +23,17 @@ jobs:
         with:
           repository: gnolang/gno
           ref: master
-          path: ./gno
+          path: /home/runner/gno
 
       - name: change block time to 2s
+        working-directory: /home/runner/
         run: |
           sed -i 's/ctx.Timestamp += (count \* 5)/ctx.Timestamp += (count \* 2)/g' ./gno/gnovm/tests/stdlibs/std/std.go
 
       - name: build gno
+        working-directory: /home/runner/gno
         run: |
-          pwd
-          cd gno/gnovm
           make install
-          pwd
 
       - name: set up python
         uses: actions/setup-python@v4
@@ -43,15 +42,17 @@ jobs:
 
       - name: checkout gnoswap
         uses: actions/checkout@v4
+        with:
+          path: /home/runner/gnoswap
 
       - name: run setup.py to copy contracts
+        working-directory: /home/runner/gnoswap
         run: |
-          pwd
           python3 setup.py
 
       - name: prepare `emission` tests
+        working-directory: /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
         run: |
-          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
           for f in *_test.gno; do
             [ -e "$f" ] || continue
 
@@ -63,8 +64,8 @@ jobs:
           done
 
       - name: run `emission` tests one by one
+        working-directory: /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
         run: |
-          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
           for f in $TESTFILES; do
