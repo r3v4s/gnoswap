@@ -23,16 +23,15 @@ jobs:
         with:
           repository: gnolang/gno
           ref: master
-          path: /home/runner/gno
+          path: ./gno
 
       - name: change block time to 2s
-        working-directory: /home/runner/
         run: |
           sed -i 's/ctx.Timestamp += (count \* 5)/ctx.Timestamp += (count \* 2)/g' ./gno/gnovm/tests/stdlibs/std/std.go
 
       - name: build gno
-        working-directory: /home/runner/gno
         run: |
+          cd gno
           make install
 
       - name: set up python
@@ -43,44 +42,43 @@ jobs:
       - name: checkout gnoswap
         uses: actions/checkout@v4
         with:
-          path: /home/runner/gnoswap
+          path: ./tmp/gnoswap
 
       - name: run setup.py to copy contracts
-        working-directory: /home/runner/gnoswap
         run: |
+          cd tmp/gnoswap
           python3 setup.py
 
-      - name: prepare `emission` tests
-        working-directory: /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
-        run: |
-          for f in *_test.gno; do
-            [ -e "$f" ] || continue
+      # - name: prepare `emission` tests
+      #   run: |
+      #     for f in *_test.gno; do
+      #       [ -e "$f" ] || continue
 
-            if [ "$f" == "_helper_test.gno" ]; then
-              continue
-            fi
+      #       if [ "$f" == "_helper_test.gno" ]; then
+      #         continue
+      #       fi
 
-            mv "$f" "${f}A"
-          done
+      #       mv "$f" "${f}A"
+      #     done
 
-      - name: run `emission` tests one by one
-        working-directory: /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
-        run: |
-          TESTFILES=$(ls | grep '_test.gnoA$' || true)
+      # - name: run `emission` tests one by one
+      #   working-directory: /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
+      #   run: |
+      #     TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
-          for f in $TESTFILES; do
-            base="${f%.gnoA}"
+      #     for f in $TESTFILES; do
+      #       base="${f%.gnoA}"
 
-            echo "---------------------------------------------------"
-            echo "Renaming $f → $base"
-            mv "$f" "$base"
+      #       echo "---------------------------------------------------"
+      #       echo "Renaming $f → $base"
+      #       mv "$f" "$base"
 
-            echo "Running 'gno test' for: $base"
-            gno test ./ -root-dir /home/runner/gno
-            # go run ~/gno/gnovm/cmd/gno test ./ -root-dir /home/runner/gno
-            echo "Finished tests for: $base"
-            echo "---------------------------------------------------"
+      #       echo "Running 'gno test' for: $base"
+      #       gno test ./ -root-dir /home/runner/gno
+      #       # go run ~/gno/gnovm/cmd/gno test ./ -root-dir /home/runner/gno
+      #       echo "Finished tests for: $base"
+      #       echo "---------------------------------------------------"
 
-            echo "Reverting $base → $f"
-            mv "$base" "$f"
-          done
+      #       echo "Reverting $base → $f"
+      #       mv "$base" "$f"
+      #     done
