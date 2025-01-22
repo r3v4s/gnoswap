@@ -79,6 +79,6 @@ jobs:
             echo "Finished tests for: $base.gno"
             echo "---------------------------------------------------"
 
-            echo "Reverting $base → $f.gno"
-            mv "$base" "$f.gno"
+            echo "Reverting $base.gno → $f"
+            mv "$base.gno" "$f"
           done
