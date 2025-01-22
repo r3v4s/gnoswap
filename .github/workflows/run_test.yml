@@ -50,6 +50,7 @@ jobs:
 
       - name: prepare `pool` tests
         run: |
+          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
           for f in *_test.gno; do
             [ -e "$f" ] || continue
 
@@ -58,4 +59,25 @@ jobs:
             fi
 
             mv "$f" "${f}A"
+          done
+
+      - name: run `pool` tests one by one
+        run: |
+          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
+          TESTFILES=$(ls | grep '_test.gnoA$' || true)
+
+          for f in $TESTFILES; do
+            base="${f%.gnoA}"
+
+            echo "---------------------------------------------------"
+            echo "Renaming $f → $base"
+            mv "$f" "$base"
+
+            echo "Running 'gno test' for: $base"
+            gno test
+            echo "Finished tests for: $base"
+            echo "---------------------------------------------------"
+
+            echo "Reverting $base → $f"
+            mv "$base" "$f"
           done
