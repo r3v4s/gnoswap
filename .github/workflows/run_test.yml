@@ -48,8 +48,14 @@ jobs:
         run: |
           python3 setup.py
 
-      - name: run gno test file `pool`
+      - name: prepare `pool` tests
         run: |
-          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
-          ls -l
-          # gno test ./
+          for f i *_test.gno; do
+            [ -e "$f" ] || continue
+
+            if [ "$f" == "_helper_test.gno" ]; then
+              continue
+            fi
+
+            mv "$f" "${f}A"
+          done
