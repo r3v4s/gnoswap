@@ -32,7 +32,7 @@ jobs:
       - name: build gno
         run: |
           cd gno/gnovm
-          make install.gno
+          make install
 
       - name: set up python
         uses: actions/setup-python@v4
