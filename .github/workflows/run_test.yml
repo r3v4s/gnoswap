@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: gnolang/gno
-          ref: master
+          # ref: master
           path: ./gno
 
       - name: change block time to 2s
@@ -32,9 +32,7 @@ jobs:
       - name: build gno
         run: |
           cd gno
-          make install
-          cd gno.land
-          make install
+          make install.gno
 
       - name: set up python
         uses: actions/setup-python@v4
@@ -76,7 +74,7 @@ jobs:
             mv "$f" "$base"
 
             echo "Running 'gno test' for: $base"
-            gno test ./ -root-dir /home/runner/gno
+            go run gno.land/gnovm -test ./ -root-dir /home/runner/gno
             echo "Finished tests for: $base"
             echo "---------------------------------------------------"
 
