@@ -1,0 +1,42 @@
+name: run-test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-test:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: set up go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.22
+
+      - name: change block time to 2s
+        run: |
+          sed -i 's/ctx.Timestamp += (count \* 5)/ctx.Timestamp += (count \* 2)/g' ./gno/gnovm/tests/stdlibs/std/std.go
+
+      - name: build gno
+        run: |
+          cd gno
+          make install
+
+      - name: set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: install python packages
+        run: |
+          python3 setup.py
