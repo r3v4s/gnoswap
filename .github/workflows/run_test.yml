@@ -47,6 +47,7 @@ jobs:
       - name: run setup.py to copy contracts
         run: |
           cd tmp/gnoswap
+          ls -l /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/
           python3 setup.py -w /home/runner/gnoswap/gnoswap
           ls -l /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/
 
