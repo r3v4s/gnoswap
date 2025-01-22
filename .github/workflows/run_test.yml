@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: gnolang/gno
-          ref: chain/test5.0
+          ref: master
           path: ./gno
 
       - name: change block time to 2s
@@ -41,8 +41,6 @@ jobs:
 
       - name: checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: run setup.py to copy contracts
         run: |
