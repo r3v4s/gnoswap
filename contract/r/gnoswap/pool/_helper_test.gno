@@ -492,8 +492,6 @@ func ugnotBalanceOf(t *testing.T, addr std.Address) uint64 {
 
 func ugnotMint(t *testing.T, addr std.Address, denom string, amount int64) {
 	t.Helper()
-	banker := std.GetBanker(std.BankerTypeRealmIssue)
-	banker.IssueCoin(addr, denom, amount)
 	std.TestIssueCoins(addr, std.Coins{{denom, int64(amount)}})
 }
 
