@@ -44,6 +44,12 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: install python packages
+      - name: run setup.py to copy contracts
         run: |
           python3 setup.py
+
+      - name: run gno test file `pool`
+        run: |
+          ls -l
+          # cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
+          # gno test ./
