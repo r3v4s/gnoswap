@@ -23,7 +23,7 @@ jobs:
         with:
           repository: gnolang/gno
           ref: master
-          path: ./gno
+          # path: ./gno
 
       - name: change block time to 2s
         run: |
