@@ -75,8 +75,7 @@ jobs:
             mv "$f" "$base"
 
             echo "Running 'gno test' for: $base"
-            gno test ./ -root-dir /home/runner/gno
-            # go run ~/gno/gnovm/cmd/gno test ./ -root-dir /home/runner/gnoswap/gnoswap/gno
+            gno test ./ -root-dir /home/runner/gnoswap/gnoswap/gno -v
             echo "Finished tests for: $base"
             echo "---------------------------------------------------"
 
