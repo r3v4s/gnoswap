@@ -270,7 +270,12 @@ func isLastBlockOfHalvingYear(height int64) bool {
 // handleLeftEmissionAmount handles the left emission amount for a halving year.
 // It calculates the left emission amount by subtracting the halving year mint amount from the halving year amount.
 func handleLeftEmissionAmount(year int64, amount uint64) uint64 {
-	return GetHalvingYearLeftAmount(year) - amount
+	left := GetHalvingYearLeftAmount(year)
+	// if left <= amount {
+	// 	return 0
+	// }
+
+	return left - amount
 }
 
 // skipIfSameHeight returns true if the current block height is the same as the last minted height.
