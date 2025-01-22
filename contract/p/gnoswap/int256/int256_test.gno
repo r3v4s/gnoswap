@@ -18,7 +18,7 @@ func TestSign(t *testing.T) {
 	for _, tc := range tests {
 		z := MustFromDecimal(tc.x)
 		got := z.Sign()
-		if got == tc.want {
+		if got != tc.want {
 			t.Errorf("Sign(%s) = %d, want %d", tc.x, got, tc.want)
 		}
 	}
