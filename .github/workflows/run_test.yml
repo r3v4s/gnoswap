@@ -70,15 +70,12 @@ jobs:
           for f in $TESTFILES; do
             base="${f%.gnoA}"
 
-            echo "---------------------------------------------------"
-            echo "Renaming $f → $base.gno"
+            # make testfile as .gno
             mv "$f" "$base.gno"
 
-            echo "Running 'gno test' for: $base.gno"
+            # run test
             gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-            echo "Finished tests for: $base.gno"
-            echo "---------------------------------------------------"
-
-            echo "Reverting $base.gno → $f"
+            
+            # revert testfile to .gnoA
             mv "$base.gno" "$f"
           done
