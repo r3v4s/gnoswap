@@ -49,6 +49,19 @@ jobs:
           cd tmp/gnoswap
           python3 setup.py -w /home/runner/work/gnoswap/gnoswap
 
+      - name: Prepare `uint256` tests
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/p/gnoswap/uint256
+        run: |
+          for f in *_test.gno; do
+            [ -e "$f" ] || continue
+
+            if [ "$f" == "_helper_test.gno" ]; then
+              continue
+            fi
+
+            mv "$f" "${f}A"
+          done
+
       - name: Run `uint256` tests one by one
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/p/gnoswap/uint256
         run: |
