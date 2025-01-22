@@ -31,9 +31,8 @@ jobs:
 
       - name: build gno
         run: |
-          cat /home/runner/gnoswap/gnoswap/gno/gnovm/tests/stdlibs/std/std.go
-
           cd gno
+          pwd
           make install.gno
 
       - name: set up python
