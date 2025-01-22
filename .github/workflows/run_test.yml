@@ -31,20 +31,22 @@ jobs:
 
       - name: build gno
         run: |
-          ls -l /home/runner/work/gnoswap/gnoswap/gno
+          pwd
           cd gno/gnovm
           make install
+          pwd
 
       - name: set up python
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
 
-      - name: checkout code
+      - name: checkout gnoswap
         uses: actions/checkout@v4
 
       - name: run setup.py to copy contracts
         run: |
+          pwd
           python3 setup.py
 
       - name: prepare `emission` tests
