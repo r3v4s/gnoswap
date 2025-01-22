@@ -22,7 +22,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: gnolang/gno
-          # ref: master
           path: ./gno
 
       - name: change block time to 2s
@@ -74,7 +73,7 @@ jobs:
             mv "$f" "$base"
 
             echo "Running 'gno test' for: $base"
-            go run gno.land/gnovm -test ./ -root-dir /home/runner/gno
+            gno -test ./ -root-dir /home/runner/gno
             echo "Finished tests for: $base"
             echo "---------------------------------------------------"
 
