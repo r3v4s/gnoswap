@@ -49,9 +49,9 @@ jobs:
         run: |
           python3 setup.py
 
-      - name: prepare `pool` tests
+      - name: prepare `emission` tests
         run: |
-          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
+          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
           for f in *_test.gno; do
             [ -e "$f" ] || continue
 
@@ -62,9 +62,9 @@ jobs:
             mv "$f" "${f}A"
           done
 
-      - name: run `pool` tests one by one
+      - name: run `emission` tests one by one
         run: |
-          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
+          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/emission
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
           for f in $TESTFILES; do
