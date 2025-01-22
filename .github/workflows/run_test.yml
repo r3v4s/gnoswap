@@ -49,6 +49,24 @@ jobs:
           cd tmp/gnoswap
           python3 setup.py -w /home/runner/work/gnoswap/gnoswap
 
+      - name: Run `uint256` tests one by one
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/p/gnoswap/uint256
+        run: |
+          TESTFILES=$(ls | grep '_test.gnoA$' || true)
+
+          for f in $TESTFILES; do
+            base="${f%.gnoA}"
+
+            # make testfile as .gno
+            mv "$f" "$base.gno"
+
+            # run test
+            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+            
+            # revert testfile to .gnoA
+            mv "$base.gno" "$f"
+          done
+
       - name: Prepare `common` tests
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
         run: |
@@ -74,7 +92,7 @@ jobs:
             mv "$f" "$base.gno"
 
             # run test
-            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno
+            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
             
             # revert testfile to .gnoA
             mv "$base.gno" "$f"
