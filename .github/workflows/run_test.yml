@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Checkout gnoswap(mai)
+      - name: Checkout gnoswap(main)
         uses: actions/checkout@v4
         with:
           path: ./tmp/gnoswap
