@@ -47,7 +47,7 @@ jobs:
       - name: run setup.py to copy contracts
         run: |
           cd tmp/gnoswap
-          python3 setup.py
+          python3 setup.py -w /home/runner/gnoswap/gnoswap
 
       # - name: prepare `emission` tests
       #   run: |
