@@ -32,8 +32,6 @@ jobs:
       - name: build gno
         run: |
           cd gno
-          pwd
-          cat /home/runner/work/gnoswap/gnoswap/gno/gnovm/tests/stdlibs/std/std.go
           make install.gno
 
       - name: set up python
@@ -50,6 +48,7 @@ jobs:
         run: |
           cd tmp/gnoswap
           python3 setup.py -w /home/runner/gnoswap/gnoswap
+          ls -l /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/
 
       - name: prepare `common` tests
         working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
