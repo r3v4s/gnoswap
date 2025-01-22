@@ -37,8 +37,8 @@ jobs:
       - name: build gno
         run: |
           cd gno
-          make install
-          # make install.gno
+          # make install
+          make install.gno
 
       - name: set up python
         uses: actions/setup-python@v4
@@ -75,7 +75,7 @@ jobs:
             mv "$f" "$base"
 
             echo "Running 'gno test' for: $base"
-            gno test ./ -root-dir ~/gno
+            gno test ./ -root-dir /home/runner/gno
             echo "Finished tests for: $base"
             echo "---------------------------------------------------"
 
