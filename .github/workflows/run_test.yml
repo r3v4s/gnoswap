@@ -18,11 +18,6 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: set up go
-        uses: actions/setup-go@v5
-        with:
-          go-version: 1.22
-
       - name: checkout gno
         uses: actions/checkout@v4
         with:
