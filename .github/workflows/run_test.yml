@@ -50,6 +50,6 @@ jobs:
 
       - name: run gno test file `pool`
         run: |
+          cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
           ls -l
-          # cd /home/runner/gno/examples/gno.land/r/gnoswap/v1/pool
           # gno test ./
