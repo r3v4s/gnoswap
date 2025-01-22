@@ -11,6 +11,8 @@ import (
 	"gno.land/r/gnoswap/v1/consts"
 
 	"gno.land/r/onbloc/bar"
+	_ "gno.land/r/onbloc/baz"
+	_ "gno.land/r/onbloc/foo"
 	"gno.land/r/onbloc/qux"
 )
 
