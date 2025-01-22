@@ -32,7 +32,7 @@ jobs:
 
       - name: build gno
         run: |
-          pwd
+          # pwd // /home/runner/work/gnoswap/gnoswap
           cd gno
           make install.gno
 
@@ -49,12 +49,14 @@ jobs:
       - name: run setup.py to copy contracts
         run: |
           cd tmp/gnoswap
-          ls -l /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/
-          python3 setup.py -w /home/runner/gnoswap/gnoswap
-          ls -l /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/
+          pwd
+
+          ls -l /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/
+          python3 setup.py -w /home/runner/work/gnoswap/gnoswap
+          ls -l /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/
 
       - name: prepare `common` tests
-        working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
         run: |
           for f in *_test.gno; do
             [ -e "$f" ] || continue
@@ -67,7 +69,7 @@ jobs:
           done
 
       - name: run `common` tests one by one
-        working-directory: /home/runner/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/common
         run: |
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
@@ -79,7 +81,7 @@ jobs:
             mv "$f" "$base.gno"
 
             echo "Running 'gno test' for: $base.gno"
-            gno test ./ -root-dir /home/runner/gnoswap/gnoswap/gno -v
+            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
             echo "Finished tests for: $base.gno"
             echo "---------------------------------------------------"
 
