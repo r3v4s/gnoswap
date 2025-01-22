@@ -33,7 +33,7 @@ jobs:
         run: |
           cd gno
           make install
-          cd gno/gno.land
+          cd gno.land
           make install
 
       - name: set up python
