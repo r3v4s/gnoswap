@@ -43,7 +43,7 @@ const (
 	maxSqrtPriceLimitX96 string = "1461446703485210103287273052203988822378723970341"
 )
 
-const (
+var (
 	// define addresses to use in tests
 	addr01 = testutils.TestAddress("addr01")
 	addr02 = testutils.TestAddress("addr02")
