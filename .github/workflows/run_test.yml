@@ -31,6 +31,7 @@ jobs:
 
       - name: build gno
         run: |
+          ls -l /home/runner/work/gnoswap/gnoswap/gno
           cd gno/gnovm
           make install
 
