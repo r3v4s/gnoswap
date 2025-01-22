@@ -74,7 +74,7 @@ jobs:
             mv "$f" "$base.gno"
 
             # run test
-            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno
             
             # revert testfile to .gnoA
             mv "$base.gno" "$f"
