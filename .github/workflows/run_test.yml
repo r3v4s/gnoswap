@@ -99,13 +99,13 @@ jobs:
 
       # 9. Now run the tests in parallel via the matrix.
       #    Each job will handle ONE contract from the matrix.
-      - name: "Run unit tests for ${{ matrix.name }}"
+      - name: "Run tests for ${{ matrix.name }}"
         # if any test fails, we keep going to test all contracts:
         # continue-on-error: true
         run: |
           FOLDER="${{ matrix.folder }}"
 
-          # 1) Run the "bulk" unit tests
+          # 1) Run unit tests first
           gno test ./"$FOLDER" \
             -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
 
@@ -114,7 +114,7 @@ jobs:
             ! -name "_helper_test.gno" \
             -exec rm -f {} +
 
-          # 3) One-by-one tests: rename *.gnoA => *.gno, run, revert
+          # 3) One-by-one gnoA tests: rename *.gnoA => *.gno, run, revert
           cd ./"$FOLDER"
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
           for f in $TESTFILES; do
