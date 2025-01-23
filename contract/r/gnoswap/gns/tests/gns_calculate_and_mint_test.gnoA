@@ -64,14 +64,14 @@ func TestMintGns(t *testing.T) {
 
 	t.Run("panic if caller is not emission contract", func(t *testing.T) {
 		uassert.PanicsWithMessage(t, "caller(g1wymu47drhr0kuq2098m792lytgtj2nyx77yrsm) has no permission", func() {
-			MintGns(a2u(consts.ADMIN))
+			MintGns(consts.ADMIN)
 		})
 	})
 
 	t.Run("do not mint for same block", func(t *testing.T) {
 		std.TestSetRealm(emissionRealm)
 		std.TestSkipHeights(-123) // revert height to get caught by last block check
-		mintedAmount := MintGns(a2u(consts.ADMIN))
+		mintedAmount := MintGns(consts.ADMIN)
 		uassert.Equal(t, uint64(0), mintedAmount)
 	})
 }
