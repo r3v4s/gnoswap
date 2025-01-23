@@ -363,7 +363,7 @@ jobs:
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/position
         run: |
           gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-          find . -type f -name "*.gno" ! -name "_helper_test.gno" -exec rm -f {} +
+          find . -type f -name "*_test.gno" ! -name "_helper_test.gno" -exec rm -f {} +
 
       # - name: Prepare `position` scenario tests
       #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/position
