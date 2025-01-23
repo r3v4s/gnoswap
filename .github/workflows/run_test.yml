@@ -235,36 +235,42 @@ jobs:
       #       mv "$base.gno" "$f"
       #     done
 
-      # - name: Prepare `gov/xgns` tests
-      #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/gov/xgns
-      #   run: |
-      #     for f in *_test.gno; do
-      #       [ -e "$f" ] || continue
+      - name: Run `gov/xgns` unit tests
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/gov/xgns
+        run: |
+          gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+          find . -type f -name "*_test.gno" ! -name "_helper_test.gno" -exec rm -f {} +
 
-      #       if [ "$f" == "_helper_test.gno" ]; then
-      #         continue
-      #       fi
+      - name: Run `gov/xgns` tests one by one
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/gov/xgns
+        run: |
+          TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
-      #       mv "$f" "${f}A"
-      #     done
+          for f in $TESTFILES; do
+            base="${f%.gnoA}"
 
-      # - name: Run `gov/xgns` tests one by one
-      #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/gov/xgns
-      #   run: |
-      #     TESTFILES=$(ls | grep '_test.gnoA$' || true)
+            # make testfile as .gno
+            mv "$f" "$base.gno"
 
-      #     for f in $TESTFILES; do
-      #       base="${f%.gnoA}"
+            # run test
+            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
 
-      #       # make testfile as .gno
-      #       mv "$f" "$base.gno"
+            # revert testfile to .gnoA
+            mv "$base.gno" "$f"
+          done
 
-      #       # run test
-      #       gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+      - name: Prepare `router` tests
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/router
+        run: |
+          for f in *_test.gno; do
+            [ -e "$f" ] || continue
 
-      #       # revert testfile to .gnoA
-      #       mv "$base.gno" "$f"
-      #     done
+            if [ "$f" == "_helper_test.gno" ]; then
+              continue
+            fi
+
+            mv "$f" "${f}A"
+          done
 
       - name: Run `emission` unit tests
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/emission
