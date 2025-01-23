@@ -326,42 +326,11 @@ jobs:
       #       mv "$f" "${f}A"
       #     done
 
-      - name: Run `router` unit tests
-        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/router
-        run: |
-          gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-          find . -type f -name "*_test.gno" ! -name "_helper_test.gno" -exec rm -f {} +
-
-      - name: Run `router` tests one by one
-        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/router
-        run: |
-          TESTFILES=$(ls | grep '_test.gnoA$' || true)
-
-          for f in $TESTFILES; do
-            base="${f%.gnoA}"
-
-            # make testfile as .gno
-            mv "$f" "$base.gno"
-
-            # run test
-            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-
-            # revert testfile to .gnoA
-            mv "$base.gno" "$f"
-          done
-
-      - name: Prepare `router` tests
-        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/router
-        run: |
-          for f in *_test.gno; do
-            [ -e "$f" ] || continue
-
-            if [ "$f" == "_helper_test.gno" ]; then
-              continue
-            fi
-
-            mv "$f" "${f}A"
-          done
+      # - name: Run `router` unit tests
+      #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/router
+      #   run: |
+      #     gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+      #     find . -type f -name "*_test.gno" ! -name "_helper_test.gno" -exec rm -f {} +
 
       # - name: Run `router` tests one by one
       #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/router
@@ -381,36 +350,29 @@ jobs:
       #       mv "$base.gno" "$f"
       #     done
 
-      # - name: Prepare `staker` tests
-      #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/staker
-      #   run: |
-      #     for f in *_test.gno; do
-      #       [ -e "$f" ] || continue
+      - name: Run `staker` unit tests
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/staker
+        run: |
+          gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+          find . -type f -name "*_test.gno" ! -name "_helper_test.gno" -exec rm -f {} +
 
-      #       if [ "$f" == "_helper_test.gno" ]; then
-      #         continue
-      #       fi
+      - name: Run `staker` tests one by one
+        working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/staker
+        run: |
+          TESTFILES=$(ls | grep '_test.gnoA$' || true)
 
-      #       mv "$f" "${f}A"
-      #     done
+          for f in $TESTFILES; do
+            base="${f%.gnoA}"
 
-      # - name: Run `staker` tests one by one
-      #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/staker
-      #   run: |
-      #     TESTFILES=$(ls | grep '_test.gnoA$' || true)
+            # make testfile as .gno
+            mv "$f" "$base.gno"
 
-      #     for f in $TESTFILES; do
-      #       base="${f%.gnoA}"
+            # run test
+            gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
 
-      #       # make testfile as .gno
-      #       mv "$f" "$base.gno"
-
-      #       # run test
-      #       gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-
-      #       # revert testfile to .gnoA
-      #       mv "$base.gno" "$f"
-      #     done
+            # revert testfile to .gnoA
+            mv "$base.gno" "$f"
+          done
 
       # - name: Prepare `community_pool` tests
       #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/community_pool
