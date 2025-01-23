@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test-gno:
+  test-gnoswap:
     runs-on: ubuntu-latest
     # fail-fast: false ensures that if one matrix entry fails,
     #            it doesn't cancel the others.
