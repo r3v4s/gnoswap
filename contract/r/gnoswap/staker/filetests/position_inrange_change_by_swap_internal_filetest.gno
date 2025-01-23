@@ -114,7 +114,7 @@ func testCreatePool() {
 func testMintWugnotGnsPos01() {
 	std.TestSetRealm(adminRealm)
 
-	wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
+	wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX)
 	gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 
 	std.TestSkipHeights(1)
@@ -137,7 +137,7 @@ func testMintWugnotGnsPos01() {
 func testMintWugnotGnsPos02() {
 	std.TestSetRealm(adminRealm)
 
-	wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
+	wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX)
 	gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 
 	std.TestSkipHeights(1)
@@ -187,10 +187,10 @@ func testMakePosition1OutRangeBySwap() {
 
 	poolTick := pl.PoolGetSlot0Tick(poolPath)
 
-	wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
+	wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX)
 	gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 
-	wugnot.Approve(consts.ROUTER_ADDR, consts.UINT64_MAX)
+	wugnot.Approve(common.AddrToUser(consts.ROUTER_ADDR), consts.UINT64_MAX)
 	gns.Approve(consts.ROUTER_ADDR, consts.UINT64_MAX)
 
 	tokenIn, tokenOut := rr.ExactInSwapRoute(
@@ -228,10 +228,10 @@ func testMakePosition1InRangeBySwap() {
 
 	poolTick := pl.PoolGetSlot0Tick(poolPath)
 
-	wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
+	wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX)
 	gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 
-	wugnot.Approve(consts.ROUTER_ADDR, consts.UINT64_MAX)
+	wugnot.Approve(common.AddrToUser(consts.ROUTER_ADDR), consts.UINT64_MAX)
 	gns.Approve(consts.ROUTER_ADDR, consts.UINT64_MAX)
 
 	tokenIn, tokenOut := rr.ExactInSwapRoute(

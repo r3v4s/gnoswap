@@ -6,6 +6,7 @@ import (
 
 	"gno.land/p/demo/uassert"
 
+	"gno.land/r/gnoswap/v1/common"
 	"gno.land/r/gnoswap/v1/consts"
 
 	pl "gno.land/r/gnoswap/v1/pool"
@@ -70,7 +71,7 @@ func testCreateExternalIncentive(t *testing.T) {
 
 		std.TestSetRealm(adminRealm)
 
-		wugnot.Approve(consts.STAKER_ADDR, consts.UINT64_MAX)
+		wugnot.Approve(common.AddrToUser(consts.STAKER_ADDR), consts.UINT64_MAX)
 		gns.Approve(consts.STAKER_ADDR, depositGnsAmount)
 
 		std.TestIssueCoins(adminAddr, std.Coins{{"ugnot", 100_000_000_000_000}})
@@ -111,12 +112,12 @@ func testCollectExternalReward_1_Unwrap(t *testing.T) {
 		std.TestSkipHeights(1)
 
 		oldUgnotBal := ugnotBalanceOf(t, adminAddr)
-		oldWugnotBal := wugnot.BalanceOf(admin)
+		oldWugnotBal := wugnot.BalanceOf(common.AddrToUser(admin))
 
 		CollectReward(1, true)
 
 		newUgnotBal := ugnotBalanceOf(t, adminAddr)
-		newWugnotBal := wugnot.BalanceOf(admin)
+		newWugnotBal := wugnot.BalanceOf(common.AddrToUser(admin))
 
 		uassert.True(t, newUgnotBal > oldUgnotBal)    // unwrapping true increases ugnot balance
 		uassert.True(t, newWugnotBal == oldWugnotBal) // wugnot stays
@@ -128,13 +129,13 @@ func testCollectExternalReward_1_NoUnWrap(t *testing.T) {
 		std.TestSetRealm(adminRealm)
 
 		oldUgnotBal := ugnotBalanceOf(t, adminAddr)
-		oldWugnotBal := wugnot.BalanceOf(admin)
+		oldWugnotBal := wugnot.BalanceOf(common.AddrToUser(admin))
 
 		std.TestSkipHeights(1)
 		CollectReward(1, false)
 
 		newUgnotBal := ugnotBalanceOf(t, adminAddr)
-		newWugnotBal := wugnot.BalanceOf(admin)
+		newWugnotBal := wugnot.BalanceOf(common.AddrToUser(admin))
 
 		uassert.True(t, newWugnotBal > oldWugnotBal) // unwrapping false increases wugnot balance
 		uassert.True(t, newUgnotBal == oldUgnotBal)  // ugnot stays
