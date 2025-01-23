@@ -103,7 +103,7 @@ jobs:
         # if any test fails, we keep going to test all contracts:
         # continue-on-error: true
         run: |
-          FOLDERS="${{ matrix.folder }}"
+          FOLDER="${{ matrix.folder }}"
 
           # 1) Run the "bulk" unit tests
           gno test ./"$FOLDER" \
