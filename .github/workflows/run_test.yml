@@ -359,18 +359,24 @@ jobs:
       #       mv "$base.gno" "$f"
       #     done
 
-      - name: Prepare `position` tests
+      - name: Run `position` unit tests
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/position
         run: |
-          for f in *_test.gno; do
-            [ -e "$f" ] || continue
+          gno test ./ -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
+          find . -type f -name "*.gno" ! -name "_helper_test.gno" -exec rm -f {} +
 
-            if [ "$f" == "_helper_test.gno" ]; then
-              continue
-            fi
+      # - name: Prepare `position` scenario tests
+      #   working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/position
+      #   run: |
+      #     for f in *_test.gno; do
+      #       [ -e "$f" ] || continue
 
-            mv "$f" "${f}A"
-          done
+      #       if [ "$f" == "_helper_test.gno" ]; then
+      #         continue
+      #       fi
+
+      #       mv "$f" "${f}A"
+      #     done
 
       - name: Run `position` tests one by one
         working-directory: /home/runner/work/gnoswap/gnoswap/gno/examples/gno.land/r/gnoswap/v1/position

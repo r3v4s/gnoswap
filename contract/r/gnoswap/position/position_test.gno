@@ -1317,7 +1317,7 @@ func TestReposition(t *testing.T) {
 			tickLower:          -5000,
 			tickUpper:          5000,
 			expectPanic:        true,
-			expectedPanicError: "[GNOSWAP-POSITION-009] position is not clear || position(9) isn't clear(liquidity:3812288, tokensOwed0:0, tokensOwed1:0)",
+			expectedPanicError: "[GNOSWAP-POSITION-009] position is not clear || position(10) isn't clear(liquidity:3812288, tokensOwed0:0, tokensOwed1:0)",
 		},
 		{
 			name:               "Fail - Reposition with partial liquidity removal",
@@ -1329,7 +1329,7 @@ func TestReposition(t *testing.T) {
 			tickLower:          -3000,
 			tickUpper:          3000,
 			expectPanic:        true,
-			expectedPanicError: "[GNOSWAP-POSITION-009] position is not clear || position(9) isn't clear(liquidity:5083034, tokensOwed0:0, tokensOwed1:0)",
+			expectedPanicError: "[GNOSWAP-POSITION-009] position is not clear || position(10) isn't clear(liquidity:5083034, tokensOwed0:0, tokensOwed1:0)",
 		},
 		{
 			name:               "Fail - Reposition on non-existent tokenId",
@@ -1339,7 +1339,7 @@ func TestReposition(t *testing.T) {
 			tickLower:          -4000,
 			tickUpper:          4000,
 			expectPanic:        true,
-			expectedPanicError: "[GNOSWAP-POSITION-009] position is not clear || position(9) isn't clear(liquidity:5083024, tokensOwed0:0, tokensOwed1:0)",
+			expectedPanicError: "[GNOSWAP-POSITION-009] position is not clear || position(10) isn't clear(liquidity:5083024, tokensOwed0:0, tokensOwed1:0)",
 		},
 	}
 
