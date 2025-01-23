@@ -135,7 +135,7 @@ func TokenBalance(t *testing.T, tokenPath string, owner std.Address) uint64 {
 	t.Helper()
 	switch tokenPath {
 	case wugnotPath:
-		return wugnot.BalanceOf(common.AddrToUser(owner))
+		return wugnot.BalanceOf(owner)
 	case gnsPath:
 		return gns.BalanceOf(owner)
 	case barPath:
@@ -157,7 +157,7 @@ func TokenAllowance(t *testing.T, tokenPath string, owner, spender std.Address) 
 	t.Helper()
 	switch tokenPath {
 	case wugnotPath:
-		return wugnot.Allowance(common.AddrToUser(owner), common.AddrToUser(spender))
+		return wugnot.Allowance(owner, spender)
 	case gnsPath:
 		return gns.Allowance(owner, spender)
 	case barPath:
@@ -464,7 +464,7 @@ func getPoolFromLpTokenId(t *testing.T, lpTokenId uint64) *pl.Pool {
 func wugnotApprove(t *testing.T, owner, spender std.Address, amount uint64) {
 	t.Helper()
 	std.TestSetRealm(std.NewUserRealm(owner))
-	wugnot.Approve(common.AddrToUser(spender), amount)
+	wugnot.Approve(spender, amount)
 }
 
 func gnsApprove(t *testing.T, owner, spender std.Address, amount uint64) {
@@ -506,7 +506,7 @@ func quxApprove(t *testing.T, owner, spender std.Address, amount uint64) {
 func wugnotTransfer(t *testing.T, to std.Address, amount uint64) {
 	t.Helper()
 	std.TestSetRealm(std.NewUserRealm(admin))
-	wugnot.Transfer(common.AddrToUser(to), amount)
+	wugnot.Transfer(to, amount)
 }
 
 func gnsTransfer(t *testing.T, to std.Address, amount uint64) {
@@ -663,7 +663,6 @@ func burnAllNFT(t *testing.T) {
 }
 
 func TestBeforeResetPositionObject(t *testing.T) {
-	t.Skip("only available for single file(current file) test")
 	// make actual data to test resetting not only position's state but also pool's state
 	std.TestSetRealm(adminRealm)
 
@@ -679,7 +678,6 @@ func TestBeforeResetPositionObject(t *testing.T) {
 }
 
 func TestResetObject(t *testing.T) {
-	t.Skip("only available for single file(current file) test")
 	resetObject(t)
 
 	uassert.Equal(t, positions.Size(), 0, "positions should be empty")
@@ -687,7 +685,6 @@ func TestResetObject(t *testing.T) {
 }
 
 func TestBurnTokens(t *testing.T) {
-	t.Skip("only available for single file(current file) test")
 	burnTokens(t)
 
 	uassert.Equal(t, foo.BalanceOf(addr01), uint64(0)) // 100_000_000 -> 0
@@ -695,7 +692,6 @@ func TestBurnTokens(t *testing.T) {
 }
 
 func TestBurnAllNFT(t *testing.T) {
-	t.Skip("only available for single file(current file) test")
 	burnAllNFT(t)
 	uassert.Equal(t, gnft.TotalSupply(), uint64(0), "gnft total supply should be 0")
 }

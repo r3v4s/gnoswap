@@ -13,7 +13,6 @@ import (
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/qux"
 
-	"gno.land/r/gnoswap/v1/common"
 	"gno.land/r/gnoswap/v1/consts"
 )
 
@@ -53,10 +52,10 @@ func testMintAndStakeNative(t *testing.T) {
 	t.Run("mint and stake native", func(t *testing.T) {
 		std.TestSetRealm(adminRealm)
 
-		gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)                       // MINT
-		wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX) // MINT
+		gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)    // MINT
+		wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX) // MINT
 
-		wugnot.Approve(common.AddrToUser(consts.POSITION_ADDR), consts.UINT64_MAX) // WRAP
+		wugnot.Approve(consts.POSITION_ADDR, consts.UINT64_MAX) // WRAP
 
 		std.TestSkipHeights(2)
 
@@ -71,7 +70,7 @@ func testMintAndStakeNative(t *testing.T) {
 
 		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(0))
 
-		adminOldWugnotBalance := wugnot.BalanceOf(common.AddrToUser(admin))
+		adminOldWugnotBalance := wugnot.BalanceOf(admin)
 		uassert.Equal(t, adminOldWugnotBalance, uint64(0))
 
 		std.TestSetRealm(adminRealm)
@@ -92,7 +91,7 @@ func testMintAndStakeNative(t *testing.T) {
 		std.TestSkipHeights(1)
 
 		// SPEND ALL WUGNOT
-		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(0))
+		uassert.Equal(t, wugnot.BalanceOf(admin), uint64(0))
 
 		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(5))
 	})

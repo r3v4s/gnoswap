@@ -19,6 +19,7 @@ import (
 
 	"gno.land/r/gnoswap/v1/gnft"
 
+	"gno.land/r/demo/users"
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/qux"
 )
@@ -39,6 +40,12 @@ const (
 	fee3000     uint32 = 3000
 	maxApprove  uint64 = 18446744073709551615
 	max_timeout int64  = 9999999999
+)
+
+const (
+	// define addresses to use in tests
+	addr01 = testutils.TestAddress("addr01")
+	addr02 = testutils.TestAddress("addr02")
 )
 
 var (

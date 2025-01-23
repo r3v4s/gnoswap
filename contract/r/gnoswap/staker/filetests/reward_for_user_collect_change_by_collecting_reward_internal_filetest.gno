@@ -111,7 +111,7 @@ func testCreatePool() {
 func testMintAndStakeWugnotGnsPos01() {
 	std.TestSetRealm(adminRealm)
 
-	wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX)
+	wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 	gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 
 	std.TestSkipHeights(1)
@@ -137,7 +137,7 @@ func testMintAndStakeWugnotGnsPos01() {
 func testMintAndStakeWugnotGnsPos02() {
 	std.TestSetRealm(adminRealm)
 
-	wugnot.Approve(common.AddrToUser(consts.POOL_ADDR), consts.UINT64_MAX)
+	wugnot.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 	gns.Approve(consts.POOL_ADDR, consts.UINT64_MAX)
 
 	std.TestSkipHeights(1)
