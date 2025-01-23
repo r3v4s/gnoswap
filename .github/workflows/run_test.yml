@@ -13,25 +13,41 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        test-folder:
-          - gno/examples/gno.land/p/gnoswap/uint256
-          - gno/examples/gno.land/p/gnoswap/int256
-          - gno/examples/gno.land/p/gnoswap/gnsmath
-
-          - gno/examples/gno.land/r/gnoswap/v1/common
-          - gno/examples/gno.land/r/gnoswap/v1/gns
-          - gno/examples/gno.land/r/gnoswap/v1/gnft
-          - gno/examples/gno.land/r/gnoswap/v1/gov/xgns
-          - gno/examples/gno.land/r/gnoswap/v1/emission
-          - gno/examples/gno.land/r/gnoswap/v1/protocol_fee
-          - gno/examples/gno.land/r/gnoswap/v1/pool
-          - gno/examples/gno.land/r/gnoswap/v1/position
-          - gno/examples/gno.land/r/gnoswap/v1/router
-          - gno/examples/gno.land/r/gnoswap/v1/staker
-          - gno/examples/gno.land/r/gnoswap/v1/community_pool
-          - gno/examples/gno.land/r/gnoswap/v1/gov/staker
-          - gno/examples/gno.land/r/gnoswap/v1/gov/governance
-          - gno/examples/gno.land/r/gnoswap/v1/launchpad
+        include:
+          - name: "p/uint256"
+            folder: "gno/examples/gno.land/p/gnoswap/uint256"
+          - name: "p/int256"
+            folder: "gno/examples/gno.land/p/gnoswap/int256"
+          - name: "p/gnsmath"
+            folder: "gno/examples/gno.land/p/gnoswap/gnsmath"
+          - name: "r/gnoswap/v1/common"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/common"
+          - name: "r/gnoswap/v1/gns"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/gns"
+          - name: "r/gnoswap/v1/gnft"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/gnft"
+          - name: "r/gnoswap/v1/gov/xgns"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/gov/xgns"
+          - name: "r/gnoswap/v1/emission"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/emission"
+          - name: "r/gnoswap/v1/protocol_fee"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/protocol_fee"
+          - name: "r/gnoswap/v1/pool"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/pool"
+          - name: "r/gnoswap/v1/position"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/position"
+          - name: "r/gnoswap/v1/router"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/router"
+          - name: "r/gnoswap/v1/staker"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/staker"
+          - name: "r/gnoswap/v1/community_pool"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/community_pool"
+          - name: "r/gnoswap/v1/gov/staker"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/gov/staker"
+          - name: "r/gnoswap/v1/gov/governance"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/gov/governance"
+          - name: "r/gnoswap/v1/launchpad"
+            folder: "gno/examples/gno.land/r/gnoswap/v1/launchpad"
 
     steps:
       # 1. Check out gnoswap repository (with your workflow file, etc.)
@@ -82,22 +98,24 @@ jobs:
           python3 setup.py -w /home/runner/work/gnoswap/gnoswap
 
       # 9. Now run the tests in parallel via the matrix.
-      #    Each job will handle ONE "test-folder" from the matrix.
-      - name: "Run unit tests for ${{ matrix.test-folder }}"
-        # if any test fails, we keep going to test all folders:
-        continue-on-error: true
+      #    Each job will handle ONE contract from the matrix.
+      - name: "Run unit tests for ${{ matrix.name }}"
+        # if any test fails, we keep going to test all contracts:
+        # continue-on-error: true
         run: |
+          FOLDERS="${{ matrix.folder }}"
+
           # 1) Run the "bulk" unit tests
-          gno test ./${{ matrix.test-folder }} \
+          gno test ./"$FOLDER" \
             -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
 
           # 2) Remove all _test.gno except _helper_test.gno
-          find ./${{ matrix.test-folder }} -type f -name "*_test.gno" \
+          find ./"$FOLDER" -type f -name "*_test.gno" \
             ! -name "_helper_test.gno" \
             -exec rm -f {} +
 
           # 3) One-by-one tests: rename *.gnoA => *.gno, run, revert
-          cd ./${{ matrix.test-folder }}
+          cd ./"$FOLDER"
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
           for f in $TESTFILES; do
             base="${f%.gnoA}"
