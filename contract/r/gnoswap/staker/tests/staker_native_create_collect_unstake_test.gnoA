@@ -255,7 +255,7 @@ func testCollectReward01(t *testing.T) {
 
 		std.TestSkipHeights(1)
 
-		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(198044))
+		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(160235))
 		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(99998010))
 	})
 }
@@ -264,7 +264,7 @@ func testUnstakeToken02(t *testing.T) {
 	t.Run("unstake token 02", func(t *testing.T) {
 		std.TestSkipHeights(335) // skip times
 
-		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(198044))
+		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(160235))
 		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(99998010))
 
 		std.TestSetRealm(adminRealm)
@@ -274,7 +274,7 @@ func testUnstakeToken02(t *testing.T) {
 
 		uassert.Equal(t, gnft.MustOwnerOf(tid(2)), adminAddr)
 
-		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(698555))
+		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(622937))
 		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(99998010))
 	})
 }
@@ -282,7 +282,7 @@ func testUnstakeToken02(t *testing.T) {
 func testEndExternalIncentive(t *testing.T) {
 	t.Run("end external incentive", func(t *testing.T) {
 		wugnot.Approve(common.AddrToUser(consts.STAKER_ADDR), consts.UINT64_MAX) // UNWRAP
-		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(698555))
+		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(622937))
 		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(99998010))
 
 		std.TestSkipHeights(9999999)
@@ -297,7 +297,7 @@ func testEndExternalIncentive(t *testing.T) {
 		)
 		std.TestSkipHeights(1)
 
-		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(698555)) // stays same
-		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(100297391))            // did get some refund
+		uassert.Equal(t, wugnot.BalanceOf(common.AddrToUser(admin)), uint64(622937)) // stays same
+		uassert.Equal(t, ugnotBalanceOf(t, adminAddr), uint64(100264985))            // did get some refund
 	})
 }
