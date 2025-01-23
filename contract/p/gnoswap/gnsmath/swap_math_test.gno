@@ -249,11 +249,11 @@ func encodePriceSqrtTest(t *testing.T, reserve1, reserve0 string) *u256.Uint {
 	ratioX192 := new(u256.Uint).Div(numerator, reserve0Uint)
 
 	// Return sqrt(ratioX192)
-	return sqrt(t, ratioX192)
+	return sqrtTest(t, ratioX192)
 }
 
 // sqrt computes the integer square root of a u256.Uint
-func sqrt(t *testing.T, x *u256.Uint) *u256.Uint {
+func sqrtTest(t *testing.T, x *u256.Uint) *u256.Uint {
 	t.Helper()
 
 	if x.IsZero() {
