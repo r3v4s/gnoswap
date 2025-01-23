@@ -10,6 +10,7 @@ import (
 )
 
 var (
+	admin     = consts.ADMIN
 	adminAddr = consts.ADMIN
 	adminUser = adminAddr
 
