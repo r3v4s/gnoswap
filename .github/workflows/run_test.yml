@@ -72,13 +72,11 @@ jobs:
       - name: Config gnovm
         run: |
           sed -i 's/ctx.Timestamp += (count \* 5)/ctx.Timestamp += (count \* 2)/g' ./gno/gnovm/tests/stdlibs/std/std.go
-
       # 5. Build/install `gno` CLI
       - name: Install gno
         run: |
           cd gno
           make install.gno
-
       # 6. Set up Python
       - name: Set up python
         uses: actions/setup-python@v4
@@ -96,7 +94,6 @@ jobs:
         run: |
           cd tmp/gnoswap
           python3 setup.py -w /home/runner/work/gnoswap/gnoswap
-
       # 9. Now run the tests in parallel via the matrix.
       #    Each job will handle ONE contract from the matrix.
       - name: "Run tests for ${{ matrix.name }}"
@@ -104,25 +101,20 @@ jobs:
         # continue-on-error: true
         run: |
           FOLDER="${{ matrix.folder }}"
-
           # 1) Run unit tests first
           gno test ./"$FOLDER" \
             -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-
           # 2) Remove all _test.gno except _helper_test.gno
           find ./"$FOLDER" -type f -name "*_test.gno" \
             ! -name "_helper_test.gno" \
             -exec rm -f {} +
-
           # 3) One-by-one gnoA tests: rename *.gnoA => *.gno, run, revert
           cd ./"$FOLDER"
           TESTFILES=$(ls | grep '_test.gnoA$' || true)
           for f in $TESTFILES; do
             base="${f%.gnoA}"
             mv "$f" "$base.gno"
-
             gno test . \
               -root-dir /home/runner/work/gnoswap/gnoswap/gno -v
-
             mv "$base.gno" "$f"
           done
