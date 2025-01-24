@@ -31,7 +31,7 @@ func wrap(ugnotAmount uint64) {
 	wugnot.Deposit() // ROUTER HAS WUGNOT
 
 	// SEND WUGNOT: ROUTER -> USER
-	wugnot.Transfer(a2u(std.PrevRealm().Addr()), ugnotAmount)
+	wugnot.Transfer(std.PrevRealm().Addr(), ugnotAmount)
 }
 
 func unwrap(wugnotAmount uint64) {
@@ -40,7 +40,7 @@ func unwrap(wugnotAmount uint64) {
 	}
 
 	// SEND WUGNOT: USER -> ROUTER
-	wugnot.TransferFrom(a2u(std.PrevRealm().Addr()), a2u(consts.ROUTER_ADDR), wugnotAmount)
+	wugnot.TransferFrom(std.PrevRealm().Addr(), consts.ROUTER_ADDR, wugnotAmount)
 
 	// UNWRAP IT
 	wugnot.Withdraw(wugnotAmount)
